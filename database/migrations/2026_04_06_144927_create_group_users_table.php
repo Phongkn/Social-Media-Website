@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('group_users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('group_id')->constrained('groups')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
+
+            $table->unique(['group_id', 'user_id']);
         });
     }
 
