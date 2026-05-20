@@ -12,22 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('group_users', function (Blueprint $table) {
-           $table->id();
-            
-            // Khóa ngoại liên kết tới bảng groups và users
-            $table->foreignId('group_id')->constrained('groups')->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            
-            // Các cột nghiệp vụ từ video
-            $table->string('status', 25); // Ví dụ: approved, pending
-            $table->string('role', 25);   // Ví dụ: admin, member
+            $table->id();
+            $table->string('status', 25); // approved, pending
+            $table->string('role', 25);
             $table->string('token', 1024)->nullable();
             $table->timestamp('token_expire_date')->nullable();
             $table->timestamp('token_used')->nullable();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('group_id')->constrained('groups');
             $table->foreignId('created_by')->constrained('users');
             $table->timestamp('created_at')->nullable();
-            // Ràng buộc để một người không thể ở trong một nhóm 2 lần
-            $table->unique(['group_id', 'user_id']);
         });
     }
 
