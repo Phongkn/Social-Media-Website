@@ -13,9 +13,12 @@ class PostReaction extends Model
 
     protected $table = 'post_reactions';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'post_id',
         'type',
         'user_id',
+        'created_at',
     ];
 }

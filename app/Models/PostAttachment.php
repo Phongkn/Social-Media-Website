@@ -13,6 +13,8 @@ class PostAttachment extends Model
 
     protected $table = 'post_attachments';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'post_id',
         'name',
@@ -21,5 +23,6 @@ class PostAttachment extends Model
         'mime',
         'size',
         'created_by',
+        'created_at',
     ];
 }

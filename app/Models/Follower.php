@@ -13,8 +13,11 @@ class Follower extends Model
 
     protected $table = 'followers';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'user_id',
         'follower_id',
+        'created_at',
     ];
 }

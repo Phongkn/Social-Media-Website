@@ -23,6 +23,7 @@ class PostReactionFactory extends Factory
             'post_id' => Post::factory(),
             'type' => fake()->randomElement(['like', 'love', 'haha', 'wow', 'sad', 'angry']),
             'user_id' => User::factory(),
+            'created_at' => fake()->dateTimeBetween('-1 year', 'now'),
         ];
     }
 }
