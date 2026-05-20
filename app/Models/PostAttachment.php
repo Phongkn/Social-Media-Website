@@ -10,4 +10,16 @@ class PostAttachment extends Model
 {
     /** @use HasFactory<PostAttachmentFactory> */
     use HasFactory;
+
+    protected $table = 'post_attachments';
+
+    protected $fillable = [
+        'post_id',
+        'name',
+        'path',
+        'url',
+        'mime',
+        'size',
+        'created_by',
+    ];
 }

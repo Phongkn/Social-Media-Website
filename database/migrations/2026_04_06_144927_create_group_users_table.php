@@ -24,9 +24,8 @@ return new class extends Migration
             $table->string('token', 1024)->nullable();
             $table->timestamp('token_expire_date')->nullable();
             $table->timestamp('token_used')->nullable();
-            
-            $table->timestamps();
-
+            $table->foreignId('created_by')->constrained('users');
+            $table->timestamp('created_at')->nullable();
             // Ràng buộc để một người không thể ở trong một nhóm 2 lần
             $table->unique(['group_id', 'user_id']);
         });

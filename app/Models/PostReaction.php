@@ -10,4 +10,12 @@ class PostReaction extends Model
 {
     /** @use HasFactory<PostReactionFactory> */
     use HasFactory;
+
+    protected $table = 'post_reactions';
+
+    protected $fillable = [
+        'post_id',
+        'type',
+        'user_id',
+    ];
 }
