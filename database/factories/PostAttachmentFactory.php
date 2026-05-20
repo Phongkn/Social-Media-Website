@@ -29,6 +29,7 @@ class PostAttachmentFactory extends Factory
             'mime' => 'image/png',
             'size' => fake()->numberBetween(10000, 5000000),
             'created_by' => User::factory(),
+            'created_at' => fake()->dateTimeBetween('-1 year', 'now'),
         ];
     }
 }

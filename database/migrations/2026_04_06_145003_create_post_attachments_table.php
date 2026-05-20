@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('mime', 25);        // Loại tệp, ví dụ: image/png
             $table->integer('size');           // Dung lượng file (bytes)
             $table->foreignId('created_by')->constrained('users');
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
         });
     }
 

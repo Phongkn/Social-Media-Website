@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('post_id')->constrained('posts');
             $table->string('type');
             $table->foreignId('user_id')->constrained('users');
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
         });
     }
 

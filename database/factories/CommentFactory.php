@@ -23,6 +23,7 @@ class CommentFactory extends Factory
             'post_id' => Post::factory(),
             'comment' => fake()->paragraph(),
             'user_id' => User::factory(),
+            'created_at' => fake()->dateTimeBetween('-1 year', 'now'),
         ];
     }
 }

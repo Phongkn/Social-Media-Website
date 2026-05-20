@@ -21,6 +21,7 @@ class FollowerFactory extends Factory
         return [
             'user_id' => User::factory(),
             'follower_id' => User::factory(),
+            'created_at' => fake()->dateTimeBetween('-1 year', 'now'),
         ];
     }
 }

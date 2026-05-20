@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
             'status' => 'approved',
             'role' => 'admin',
             'created_by' => $testUser->id,
+            'created_at' => now(),
         ]);
 
         // Thêm các user khác vào group
@@ -50,6 +51,7 @@ class DatabaseSeeder extends Seeder
                 'status' => 'approved',
                 'role' => 'member',
                 'created_by' => $testUser->id,
+                'created_at' => now(),
             ]);
         }
 
@@ -68,6 +70,7 @@ class DatabaseSeeder extends Seeder
             PostAttachment::factory(rand(1, 3))->create([
                 'post_id' => $post->id,
                 'created_by' => $post->user_id,
+                'created_at' => $post->created_at,
             ]);
         }
 
@@ -78,6 +81,7 @@ class DatabaseSeeder extends Seeder
                 PostReaction::factory()->create([
                     'post_id' => $post->id,
                     'user_id' => $user->id,
+                    'created_at' => $post->created_at,
                 ]);
             }
         }
@@ -87,6 +91,7 @@ class DatabaseSeeder extends Seeder
             Comment::factory(rand(0, 5))->create([
                 'post_id' => $post->id,
                 'user_id' => $users->random()->id,
+                'created_at' => $post->created_at,
             ]);
         }
 
@@ -97,6 +102,7 @@ class DatabaseSeeder extends Seeder
                 Follower::factory()->create([
                     'user_id' => $followed->id,
                     'follower_id' => $user->id,
+                    'created_at' => now(),
                 ]);
             }
         }

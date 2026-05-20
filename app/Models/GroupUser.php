@@ -13,6 +13,8 @@ class GroupUser extends Model
 
     protected $table = 'group_users';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'group_id',
         'user_id',
@@ -22,5 +24,6 @@ class GroupUser extends Model
         'token_expire_date',
         'token_used',
         'created_by',
+        'created_at',
     ];
 }

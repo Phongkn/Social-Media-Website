@@ -13,9 +13,12 @@ class Comment extends Model
 
     protected $table = 'comments';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'post_id',
         'comment',
         'user_id',
+        'created_at',
     ];
 }
