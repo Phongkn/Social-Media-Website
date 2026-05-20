@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Post;
 use App\Models\PostReaction;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +19,10 @@ class PostReactionFactory extends Factory
      */
     public function definition(): array
     {
-        return [];
+        return [
+            'post_id' => Post::factory(),
+            'type' => fake()->randomElement(['like', 'love', 'haha', 'wow', 'sad', 'angry']),
+            'user_id' => User::factory(),
+        ];
     }
 }

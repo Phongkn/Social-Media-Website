@@ -26,8 +26,8 @@ class GroupFactory extends Factory
             'slug' => Str::slug($name).'-'.fake()->unique()->numberBetween(1000, 999999),
             'about' => fake()->optional()->paragraph(),
             'user_id' => User::factory(),
-            'delete_at' => null,
-            'delete_by' => null,
+            'deleted_at' => null,
+            'deleted_by' => null,
         ];
     }
 }

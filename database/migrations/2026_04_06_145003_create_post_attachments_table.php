@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('post_attachments', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+
+            // Khóa ngoại liên kết đến bảng posts (Thêm cascade để tự động xóa tệp khi xóa post)
+            $table->foreignId('post_id')->constrained('posts')->cascadeOnDelete();
+
+            // Các cột thông tin tệp đính kèm từ video
+            $table->string('name', 255);       // Ví dụ: test.png
+            $table->string('path', 255);       // Đường dẫn lưu trữ trong storage
+            $table->string('url', 1024);       // URL đầy đủ để hiển thị công khai
+            $table->string('mime', 25);        // Loại tệp, ví dụ: image/png
+            $table->integer('size');           // Dung lượng file (bytes)
+            $table->foreignId('created_by')->constrained('users');
+            $table->timestamp('created_at')->nullable();
         });
     }
 

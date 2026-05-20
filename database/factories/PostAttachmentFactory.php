@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Post;
 use App\Models\PostAttachment;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +19,16 @@ class PostAttachmentFactory extends Factory
      */
     public function definition(): array
     {
-        return [];
+        $fileName = fake()->uuid().'.png';
+
+        return [
+            'post_id' => Post::factory(),
+            'name' => $fileName,
+            'path' => 'attachments/'.$fileName,
+            'url' => fake()->imageUrl(640, 480),
+            'mime' => 'image/png',
+            'size' => fake()->numberBetween(10000, 5000000),
+            'created_by' => User::factory(),
+        ];
     }
 }

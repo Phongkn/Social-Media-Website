@@ -18,14 +18,14 @@ class Group extends Model
         'slug',
         'about',
         'user_id',
-        'delete_at',
-        'delete_by',
+        'deleted_at',
+        'deleted_by',
     ];
 
     protected function casts(): array
     {
         return [
-            'delete_at' => 'datetime',
+            'deleted_at' => 'datetime',
         ];
     }
 
