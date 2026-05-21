@@ -3,53 +3,44 @@ import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <div
-        class="min-h-screen bg-zinc-100 dark:bg-zinc-950 lg:flex lg:bg-white dark:lg:bg-black"
-    >
-        <!-- Brand panel -->
-        <div
-            class="relative flex flex-col justify-between overflow-hidden bg-gradient-to-br from-sky-600 via-sky-700 to-indigo-800 px-8 py-10 text-white lg:w-[46%] lg:min-h-screen lg:px-14 lg:py-16"
-        >
-            <div
-                class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl"
-            />
-            <div
-                class="pointer-events-none absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-indigo-500/30 blur-3xl"
-            />
-
-            <Link
-                href="/"
-                class="relative text-2xl font-bold tracking-tight lg:text-3xl"
-            >
-                Connect
-            </Link>
-
-            <div class="relative mt-10 max-w-md lg:mt-0">
-                <h1
-                    class="text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl"
-                >
-                    Nơi mọi người gặp gỡ và chia sẻ.
-                </h1>
-                <p class="mt-4 text-lg text-sky-100/90">
-                    Đăng nhập để xem bảng tin, cập nhật trạng thái và kết nối với
-                    bạn bè.
+    <div class="min-h-screen bg-[#f0f2f5]">
+        <div class="mx-auto flex min-h-screen max-w-5xl flex-col items-center justify-center px-4 py-8 lg:flex-row lg:gap-8">
+            <!-- Left: Branding -->
+            <div class="mb-8 text-center lg:mb-0 lg:w-1/2 lg:text-left">
+                <Link href="/" class="inline-block">
+                    <h1 class="text-5xl font-bold text-[#1877f2] lg:text-6xl">VBook</h1>
+                </Link>
+                <p class="mt-4 text-xl text-[#1c1e21] lg:text-2xl">
+                    VBook giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống của bạn.
                 </p>
             </div>
 
-            <p class="relative mt-12 text-sm text-sky-200/80 lg:mt-0">
-                © Connect
-            </p>
-        </div>
-
-        <!-- Form -->
-        <div
-            class="flex flex-1 flex-col justify-center px-4 py-10 sm:px-8 lg:px-16"
-        >
-            <div
-                class="mx-auto w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none dark:lg:bg-transparent"
-            >
-                <slot />
+            <!-- Right: Form -->
+            <div class="w-full max-w-md">
+                <div class="rounded-lg bg-white p-6 shadow-lg">
+                    <slot />
+                </div>
+                <p class="mt-4 text-center text-sm text-[#606770]">
+                    <strong>Tạo Trang</strong> dành cho người nổi tiếng, thương hiệu hoặc doanh nghiệp.
+                </p>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer class="bg-white border-t border-[#dadde1]">
+            <div class="mx-auto max-w-5xl px-4 py-6">
+                <div class="flex flex-wrap items-center gap-4 text-xs text-[#8a8d91]">
+                    <span>Tiếng Việt</span>
+                    <a href="#" class="hover:underline">English (US)</a>
+                    <a href="#" class="hover:underline">中文(简体)</a>
+                    <a href="#" class="hover:underline">日本語</a>
+                    <a href="#" class="hover:underline">한국어</a>
+                </div>
+                <div class="my-3 border-t border-[#dadde1]"></div>
+                <div class="text-xs text-[#8a8d91]">
+                    VBook © 2024
+                </div>
+            </div>
+        </footer>
     </div>
 </template>
