@@ -23,12 +23,11 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Forgot Password" />
+        <Head title="Quên mật khẩu" />
 
         <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-            Forgot your password? No problem. Just let us know your email
-            address and we will email you a password reset link that will allow
-            you to choose a new one.
+            Quên mật khẩu? Không sao. Chỉ cần cho chúng tôi biết địa chỉ email
+            của bạn và chúng tôi sẽ gửi cho bạn liên kết đặt lại mật khẩu.
         </div>
 
         <div
@@ -60,7 +59,7 @@ const submit = () => {
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Email Password Reset Link
+                    Gửi liên kết đặt lại mật khẩu
                 </PrimaryButton>
             </div>
         </form>

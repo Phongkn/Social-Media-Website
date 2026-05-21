@@ -23,20 +23,20 @@ const verificationLinkSent = computed(
 
 <template>
     <GuestLayout>
-        <Head title="Email Verification" />
+        <Head title="Xác minh email" />
 
         <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-            Thanks for signing up! Before getting started, could you verify your
-            email address by clicking on the link we just emailed to you? If you
-            didn't receive the email, we will gladly send you another.
+            Cảm ơn bạn đã đăng ký! Trước khi bắt đầu, bạn có thể xác minh
+            địa chỉ email của mình bằng cách nhấp vào liên kết chúng tôi vừa gửi cho bạn không?
+            Nếu bạn không nhận được email, chúng tôi sẽ gửi lại cho bạn.
         </div>
 
         <div
             class="mb-4 text-sm font-medium text-green-600 dark:text-green-400"
             v-if="verificationLinkSent"
         >
-            A new verification link has been sent to the email address you
-            provided during registration.
+            Liên kết xác minh mới đã được gửi đến địa chỉ email bạn đã cung cấp
+            trong quá trình đăng ký.
         </div>
 
         <form @submit.prevent="submit">
@@ -45,7 +45,7 @@ const verificationLinkSent = computed(
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Resend Verification Email
+                    Gửi lại email xác minh
                 </PrimaryButton>
 
                 <Link
@@ -53,7 +53,7 @@ const verificationLinkSent = computed(
                     method="post"
                     as="button"
                     class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
-                    >Log Out</Link
+                    >Đăng xuất</Link
                 >
             </div>
         </form>
