@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -20,8 +20,6 @@ const initials = computed(() => {
         .slice(0, 2)
         .toUpperCase() || '?';
 });
-
-const mobileMenuOpen = ref(false);
 
 const navMain = [
     {
@@ -53,11 +51,13 @@ const navMain = [
 ];
 
 const navShortcuts = [
-    { name: 'Bạn bè', icon: 'friends' },
-    { name: 'Kỷ niệm', icon: 'memories' },
-    { name: 'Đã lưu', icon: 'saved' },
-    { name: 'Trang', icon: 'pages' },
-    { name: 'Sự kiện', icon: 'events' },
+    { name: 'Bạn bè', icon: 'friends', color: '#1877f2' },
+    { name: 'Kỷ niệm', icon: 'memories', color: '#1877f2' },
+    { name: 'Đã lưu', icon: 'saved', color: '#7c3aed' },
+    { name: 'Trang', icon: 'pages', color: '#f7931e' },
+    { name: 'Sự kiện', icon: 'events', color: '#e74c3c' },
+    { name: 'Marketplace', icon: 'marketplace2', color: '#1877f2' },
+    { name: 'Video', icon: 'video', color: '#1877f2' },
 ];
 
 function isActive(routeName) {
@@ -77,9 +77,10 @@ function isActive(routeName) {
                 <!-- Left: Logo + Search -->
                 <div class="flex items-center gap-2">
                     <Link :href="route('dashboard')" class="flex items-center">
-                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#1877f2]">
-                            <span class="text-2xl font-bold text-white">V</span>
-                        </div>
+                        <svg class="h-10 w-10" viewBox="0 0 36 36" fill="none">
+                            <path d="M18 36C27.9411 36 36 27.9411 36 18C36 8.05887 27.9411 0 18 0C8.05887 0 0 8.05887 0 18C0 27.9411 8.05887 36 18 36Z" fill="#1877F2"/>
+                            <path d="M25.008 23.0625L25.8516 18H21V14.625C21 13.2094 21.5625 11.8125 23.5781 11.8125H26.0625V7.40625C26.0625 7.40625 23.7891 7 21.6094 7C17.0625 7 14 9.82031 14 14.0625V18H9.5V23.0625H14V35.7891C14.9766 35.9297 15.9766 36 17 36C18.0234 36 19.0234 35.9297 20 35.7891V23.0625H25.008Z" fill="white"/>
+                        </svg>
                     </Link>
                     <div class="relative hidden sm:block">
                         <input
@@ -87,8 +88,8 @@ function isActive(routeName) {
                             placeholder="Tìm kiếm trên VBook"
                             class="h-10 w-60 rounded-full bg-[#f0f2f5] pl-10 pr-4 text-sm placeholder-[#65676b] focus:outline-none"
                         />
-                        <svg class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#65676b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        <svg class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#65676b]" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85a1.007 1.007 0 00-.115-.1zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"/>
                         </svg>
                     </div>
                 </div>
@@ -102,7 +103,7 @@ function isActive(routeName) {
                         class="flex h-12 w-24 items-center justify-center rounded-lg transition"
                         :class="isActive(item.routeName) ? 'border-b-[3px] border-[#1877f2] text-[#1877f2]' : 'text-[#65676b] hover:bg-[#f0f2f5]'"
                     >
-                        <svg v-if="item.icon === 'home'" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                        <svg v-if="item.icon === 'home'" class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M9.464 2.344a3 3 0 013.072 0l7 4.2A3 3 0 0121 9.2V19a3 3 0 01-3 3H6a3 3 0 01-3-3V9.2a3 3 0 011.464-2.656l7-4.2zM12 4.87a1 1 0 00-.512.138l-7 4.2A1 1 0 004 9.2V19a1 1 0 001 1h14a1 1 0 001-1V9.2a1 1 0 00-.488-.892l-7-4.2A1 1 0 0012 4.87z"/>
                         </svg>
                     </Link>
@@ -111,18 +112,17 @@ function isActive(routeName) {
                         :key="item.name"
                         class="flex h-12 w-24 cursor-not-allowed items-center justify-center rounded-lg text-[#b0b3b8]"
                     >
-                        <svg v-if="item.icon === 'watch'" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                        <svg v-if="item.icon === 'watch'" class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                         </svg>
-                        <svg v-else-if="item.icon === 'marketplace'" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                        <svg v-else-if="item.icon === 'marketplace'" class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
                         </svg>
-                        <svg v-else-if="item.icon === 'groups'" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        <svg v-else-if="item.icon === 'groups'" class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-10c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm0 10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/>
                         </svg>
-                        <svg v-else-if="item.icon === 'gaming'" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-                            <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        <svg v-else-if="item.icon === 'gaming'" class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
                         </svg>
                     </div>
                 </nav>
@@ -131,12 +131,12 @@ function isActive(routeName) {
                 <div class="flex items-center gap-2">
                     <button class="flex h-10 w-10 items-center justify-center rounded-full bg-[#e4e6eb] text-[#050505] hover:bg-[#d8dadf]">
                         <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            <path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18z"/>
                         </svg>
                     </button>
                     <button class="flex h-10 w-10 items-center justify-center rounded-full bg-[#e4e6eb] text-[#050505] hover:bg-[#d8dadf]">
                         <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
                         </svg>
                     </button>
                     <Link :href="route('profile.edit')" class="flex items-center gap-1">
@@ -169,20 +169,27 @@ function isActive(routeName) {
                         class="flex items-center gap-3 rounded-lg px-2 py-2 text-sm font-semibold text-[#050505] hover:bg-[#e4e6eb]"
                     >
                         <div class="flex h-9 w-9 items-center justify-center rounded-full bg-[#e4e6eb]">
-                            <svg v-if="item.icon === 'friends'" class="h-5 w-5 text-[#1877f2]" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            <svg v-if="item.icon === 'friends'" class="h-5 w-5" :style="{ color: item.color }" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
                             </svg>
-                            <svg v-else-if="item.icon === 'memories'" class="h-5 w-5 text-[#1877f2]" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            <svg v-else-if="item.icon === 'memories'" class="h-5 w-5" :style="{ color: item.color }" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
                             </svg>
-                            <svg v-else-if="item.icon === 'saved'" class="h-5 w-5 text-[#1877f2]" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                            <svg v-else-if="item.icon === 'saved'" class="h-5 w-5" :style="{ color: item.color }" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
                             </svg>
-                            <svg v-else-if="item.icon === 'pages'" class="h-5 w-5 text-[#f7931e]" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+                            <svg v-else-if="item.icon === 'pages'" class="h-5 w-5" :style="{ color: item.color }" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
+                                <path d="M7 7h10v2H7zm0 4h10v2H7zm0 4h7v2H7z"/>
                             </svg>
-                            <svg v-else-if="item.icon === 'events'" class="h-5 w-5 text-[#e74c3c]" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            <svg v-else-if="item.icon === 'events'" class="h-5 w-5" :style="{ color: item.color }" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+                            </svg>
+                            <svg v-else-if="item.icon === 'marketplace2'" class="h-5 w-5" :style="{ color: item.color }" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
+                            </svg>
+                            <svg v-else-if="item.icon === 'video'" class="h-5 w-5" :style="{ color: item.color }" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
                             </svg>
                         </div>
                         {{ item.name }}
@@ -248,13 +255,13 @@ function isActive(routeName) {
                         <h3 class="text-sm font-semibold text-[#65676b]">Người liên hệ</h3>
                         <div class="flex gap-2">
                             <button class="text-[#65676b] hover:text-[#050505]">
-                                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85a1.007 1.007 0 00-.115-.1zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"/>
                                 </svg>
                             </button>
                             <button class="text-[#65676b] hover:text-[#050505]">
-                                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
                                 </svg>
                             </button>
                         </div>
@@ -285,14 +292,14 @@ function isActive(routeName) {
                 <span class="text-xs">Trang chủ</span>
             </Link>
             <span class="flex flex-col items-center gap-0.5 p-2 text-[#65676b]">
-                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85a1.007 1.007 0 00-.115-.1zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z"/>
                 </svg>
                 <span class="text-xs">Tìm</span>
             </span>
             <span class="flex flex-col items-center gap-0.5 p-2 text-[#65676b]">
                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                    <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
                 </svg>
                 <span class="text-xs">Thông báo</span>
             </span>
@@ -302,7 +309,7 @@ function isActive(routeName) {
                 :class="isActive('profile.edit') ? 'text-[#1877f2]' : 'text-[#65676b]'"
             >
                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                 </svg>
                 <span class="text-xs">Hồ sơ</span>
             </Link>
