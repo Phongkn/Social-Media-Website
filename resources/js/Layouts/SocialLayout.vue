@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from 'vue';
-import { Link, usePage } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
+import { Link, router, usePage } from '@inertiajs/vue3';
 
 const props = defineProps({
     title: {
@@ -20,6 +20,12 @@ const initials = computed(() => {
         .slice(0, 2)
         .toUpperCase() || '?';
 });
+
+const showAccountMenu = ref(false);
+
+function logout() {
+    router.post(route('logout'));
+}
 
 const navMain = [
     {
@@ -67,20 +73,23 @@ function isActive(routeName) {
         return false;
     }
 }
+
+function handleClickOutside() {
+    showAccountMenu.value = false;
+}
 </script>
 
 <template>
-    <div class="min-h-screen bg-[#f0f2f5]">
+    <div class="min-h-screen bg-[#f0f2f5]" @click="handleClickOutside">
         <!-- Top Navigation Bar -->
         <header class="sticky top-0 z-50 bg-white shadow-sm">
             <div class="mx-auto flex h-14 max-w-[1920px] items-center justify-between px-4">
                 <!-- Left: Logo + Search -->
                 <div class="flex items-center gap-2">
                     <Link :href="route('dashboard')" class="flex items-center">
-                        <svg class="h-10 w-10" viewBox="0 0 36 36" fill="none">
-                            <path d="M18 36C27.9411 36 36 27.9411 36 18C36 8.05887 27.9411 0 18 0C8.05887 0 0 8.05887 0 18C0 27.9411 8.05887 36 18 36Z" fill="#1877F2"/>
-                            <path d="M25.008 23.0625L25.8516 18H21V14.625C21 13.2094 21.5625 11.8125 23.5781 11.8125H26.0625V7.40625C26.0625 7.40625 23.7891 7 21.6094 7C17.0625 7 14 9.82031 14 14.0625V18H9.5V23.0625H14V35.7891C14.9766 35.9297 15.9766 36 17 36C18.0234 36 19.0234 35.9297 20 35.7891V23.0625H25.008Z" fill="white"/>
-                        </svg>
+                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#1877f2]">
+                            <span class="text-2xl font-bold text-white">V</span>
+                        </div>
                     </Link>
                     <div class="relative hidden sm:block">
                         <input
@@ -139,11 +148,105 @@ function isActive(routeName) {
                             <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
                         </svg>
                     </button>
-                    <Link :href="route('profile.edit')" class="flex items-center gap-1">
-                        <div class="flex h-9 w-9 items-center justify-center rounded-full bg-[#e4e6eb] text-sm font-bold text-[#050505]">
+
+                    <!-- Account Menu -->
+                    <div class="relative" @click.stop>
+                        <button
+                            @click="showAccountMenu = !showAccountMenu"
+                            class="flex h-9 w-9 items-center justify-center rounded-full bg-[#e4e6eb] text-sm font-bold text-[#050505] hover:bg-[#d8dadf]"
+                        >
                             {{ initials }}
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div
+                            v-if="showAccountMenu"
+                            class="absolute right-0 top-12 w-[360px] rounded-lg bg-white py-2 shadow-xl"
+                        >
+                            <!-- User Info -->
+                            <Link
+                                :href="route('profile.edit')"
+                                class="mx-2 mb-2 flex items-center gap-3 rounded-lg p-2 hover:bg-[#f0f2f5]"
+                                @click="showAccountMenu = false"
+                            >
+                                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#e4e6eb] text-sm font-bold">
+                                    {{ initials }}
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-[#050505]">{{ user?.name }}</p>
+                                    <p class="text-xs text-[#65676b]">Xem trang cá nhân của bạn</p>
+                                </div>
+                            </Link>
+
+                            <div class="my-2 border-t border-[#ced0d4]"></div>
+
+                            <!-- Menu Items -->
+                            <div class="mx-2 space-y-1">
+                                <Link
+                                    :href="route('profile.edit')"
+                                    class="flex items-center gap-3 rounded-lg px-2 py-2 text-sm font-semibold text-[#050505] hover:bg-[#f0f2f5]"
+                                    @click="showAccountMenu = false"
+                                >
+                                    <div class="flex h-9 w-9 items-center justify-center rounded-full bg-[#e4e6eb]">
+                                        <svg class="h-5 w-5 text-[#050505]" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                        </svg>
+                                    </div>
+                                    Cài đặt & quyền riêng tư
+                                </Link>
+
+                                <Link
+                                    :href="route('profile.edit')"
+                                    class="flex items-center gap-3 rounded-lg px-2 py-2 text-sm font-semibold text-[#050505] hover:bg-[#f0f2f5]"
+                                    @click="showAccountMenu = false"
+                                >
+                                    <div class="flex h-9 w-9 items-center justify-center rounded-full bg-[#e4e6eb]">
+                                        <svg class="h-5 w-5 text-[#050505]" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                    </div>
+                                    Cài đặt & quyền riêng tư
+                                </Link>
+
+                                <Link
+                                    :href="route('profile.edit')"
+                                    class="flex items-center gap-3 rounded-lg px-2 py-2 text-sm font-semibold text-[#050505] hover:bg-[#f0f2f5]"
+                                    @click="showAccountMenu = false"
+                                >
+                                    <div class="flex h-9 w-9 items-center justify-center rounded-full bg-[#e4e6eb]">
+                                        <svg class="h-5 w-5 text-[#050505]" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                    </div>
+                                    Trợ giúp & hỗ trợ
+                                </Link>
+
+                                <button
+                                    class="flex w-full items-center gap-3 rounded-lg px-2 py-2 text-sm font-semibold text-[#050505] hover:bg-[#f0f2f5]"
+                                    @click="showAccountMenu = false"
+                                >
+                                    <div class="flex h-9 w-9 items-center justify-center rounded-full bg-[#e4e6eb]">
+                                        <svg class="h-5 w-5 text-[#050505]" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                                        </svg>
+                                    </div>
+                                    Màn hình & trợ năng
+                                </button>
+
+                                <button
+                                    class="flex w-full items-center gap-3 rounded-lg px-2 py-2 text-sm font-semibold text-[#050505] hover:bg-[#f0f2f5]"
+                                    @click="logout(); showAccountMenu = false"
+                                >
+                                    <div class="flex h-9 w-9 items-center justify-center rounded-full bg-[#e4e6eb]">
+                                        <svg class="h-5 w-5 text-[#050505]" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                                        </svg>
+                                    </div>
+                                    Đăng xuất
+                                </button>
+                            </div>
                         </div>
-                    </Link>
+                    </div>
                 </div>
             </div>
         </header>
