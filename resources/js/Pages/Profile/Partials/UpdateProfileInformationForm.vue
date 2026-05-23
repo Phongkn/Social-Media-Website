@@ -1,8 +1,5 @@
 <script setup>
 import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
 defineProps({
@@ -24,74 +21,80 @@ const form = useForm({
 
 <template>
     <section>
-        <header>
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                Thông tin hồ sơ
+        <header class="mb-6">
+            <h2 class="text-xl font-bold text-[#050505]">
+                Thông tin cá nhân
             </h2>
-
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                Cập nhật thông tin hồ sơ và địa chỉ email của tài khoản.
-            </p>
         </header>
 
-        <form
-            @submit.prevent="form.patch(route('profile.update'))"
-            class="mt-6 space-y-6"
-        >
-            <div>
-                <InputLabel for="name" value="Họ và tên" />
-
-                <TextInput
+        <form @submit.prevent="form.patch(route('profile.update'))">
+            <!-- Name -->
+            <div class="mb-4">
+                <label class="block text-sm font-semibold text-[#050505] mb-1">Họ và tên</label>
+                <input
                     id="name"
                     type="text"
-                    class="mt-1 block w-full"
                     v-model="form.name"
+                    class="w-full rounded-lg border border-[#dadde1] bg-[#f5f6f7] px-4 py-3 text-[#050505] placeholder-[#8a8d91] focus:border-[#1877f2] focus:outline-none focus:ring-1 focus:ring-[#1877f2]"
                     required
                     autofocus
                     autocomplete="name"
                 />
-
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-1" :message="form.errors.name" />
             </div>
 
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
+            <!-- Email -->
+            <div class="mb-4">
+                <label class="block text-sm font-semibold text-[#050505] mb-1">Email</label>
+                <input
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
                     v-model="form.email"
+                    class="w-full rounded-lg border border-[#dadde1] bg-[#f5f6f7] px-4 py-3 text-[#050505] placeholder-[#8a8d91] focus:border-[#1877f2] focus:outline-none focus:ring-1 focus:ring-[#1877f2]"
                     required
                     autocomplete="username"
                 />
-
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-1" :message="form.errors.email" />
             </div>
 
-            <div v-if="mustVerifyEmail && user.email_verified_at === null">
-                <p class="mt-2 text-sm text-gray-800 dark:text-gray-200">
-                    Địa chỉ email của bạn chưa được xác minh.
-                    <Link
-                        :href="route('verification.send')"
-                        method="post"
-                        as="button"
-                        class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
-                    >
-                        Nhấn vào đây để gửi lại email xác minh.
-                    </Link>
-                </p>
-
+            <!-- Email Verification -->
+            <div v-if="mustVerifyEmail && user.email_verified_at === null" class="mb-4 rounded-lg bg-[#fff8e1] p-4">
+                <div class="flex items-start gap-3">
+                    <svg class="h-5 w-5 text-[#f7931e] mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    <div>
+                        <p class="text-sm font-semibold text-[#050505]">Email chưa được xác minh</p>
+                        <p class="text-sm text-[#65676b]">
+                            Địa chỉ email của bạn chưa được xác minh.
+                            <Link
+                                :href="route('verification.send')"
+                                method="post"
+                                as="button"
+                                class="font-semibold text-[#1877f2] hover:underline"
+                            >
+                                Gửi lại email xác minh
+                            </Link>
+                        </p>
+                    </div>
+                </div>
                 <div
                     v-show="status === 'verification-link-sent'"
-                    class="mt-2 text-sm font-medium text-green-600 dark:text-green-400"
+                    class="mt-2 rounded-lg bg-[#e8f5e9] p-3 text-sm font-medium text-[#2e7d32]"
                 >
                     Liên kết xác minh mới đã được gửi đến địa chỉ email của bạn.
                 </div>
             </div>
 
-            <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Lưu</PrimaryButton>
+            <!-- Submit -->
+            <div class="flex items-center gap-3 border-t border-[#ced0d4] pt-4 mt-6">
+                <button
+                    type="submit"
+                    class="rounded-lg bg-[#1877f2] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#166fe5] disabled:opacity-50"
+                    :disabled="form.processing"
+                >
+                    Lưu thay đổi
+                </button>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
@@ -101,9 +104,9 @@ const form = useForm({
                 >
                     <p
                         v-if="form.recentlySuccessful"
-                        class="text-sm text-gray-600 dark:text-gray-400"
+                        class="text-sm font-medium text-[#2e7d32]"
                     >
-                        Đã lưu.
+                        Đã lưu thành công!
                     </p>
                 </Transition>
             </div>
